@@ -1,0 +1,75 @@
+body {
+    font-family: "Lato", Helvetica, Arial, sans-serif;
+    font-size: 10px;
+    line-height: 1.72222;
+    color: #34495e;
+    background-color: #ffffff;
+  }
+table {
+  width: 100%;
+  height: 80%;
+  border-spacing: 0px;
+}
+td {
+  border: 1px solid lightblue;
+}
+
+table td.blocked {
+  background-color:#999;
+}
+
+#navBar {
+  padding-bottom: 2px;
+  background-color: lightgray;
+  border-bottom: 1px solid gray;
+}
+
+ul.nav {
+  padding: 0px 5px;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  width: 100%;
+}
+
+li {
+  display: block;
+  flex: 0 1 auto; /* Default */
+  list-style-type: none;
+}
+
+
+#maingrid {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+@keyframes searchanimation {
+  from {background-color: yellow;}
+  to {background-color: greenyellow;}
+}
+
+@keyframes foundpathanimation {
+  from {background-color: greenyellow;}
+  to {background-color: violet;}
+}
+
+.visited {
+  animation-name: searchanimation;
+  animation-duration: 0.2s;
+  animation-fill-mode: forwards;
+}
+
+.path {
+  animation-name: foundpathanimation;
+  animation-duration: 0.2s;
+  animation-fill-mode: forwards;
+}
+
+.startcell {
+  background-color: blue;
+}
+
+.endcell {
+  background-color: red;
+}

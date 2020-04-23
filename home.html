@@ -1,0 +1,182 @@
+<html>
+
+<head>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<body>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+
+  <div id="navBar">
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+        <a class="nav-link active" href="#" id="visualize">Visualize</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+          aria-expanded="false">Algorithms</a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#" id="bfs">bfs</a>
+          <a class="dropdown-item" href="#" id="dfs">dfs</a>
+          <a class="dropdown-item" href="#" id="dijkstra">dijkstra</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Random</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+          aria-expanded="false">Speed</a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#">Fast</a>
+          <a class="dropdown-item" href="#">Moderate</a>
+          <a class="dropdown-item" href="#">Slow</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" id="clearboard">Clear board</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" id="clearpath">Clear Path</a>
+      </li>
+    </ul>
+  </div>
+  <div id="maingrid">
+    <p>Test mainGrid</p>
+
+    <div id="board"> </div>
+    <script type="text/javascript" src="node.js"></script>
+    <script type="text/javascript" src="event.js"></script>
+    <script type="text/javascript" src="helper.js"></script>
+    <script type="text/javascript" src="Algorithms/sampleAlgo.js"></script>
+    <script type="text/javascript" src="Algorithms/bfs.js"></script>
+    <script type="text/javascript" src="Queue.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+  </div>
+</body>
+
+<!-- <script type="text/javascript">
+  $(function () {
+    $("#1").click(function () {
+      alert($(this).text());
+    });
+    $("#2").click(function () {
+      alert($(this).text());
+    });
+    $("#3").click(function () {
+      alert($(this).text());
+    });
+  });
+</script> -->
+
+<script type="text/javascript" charset="utf-8">
+  $(function () {
+    var isMouseDown = false;
+    var startsel = false;
+    var endsel = false;
+    console.log(startcell);
+    $("#tableid td")
+      .mousedown(function () {
+        isMouseDown = true;
+        if ($(this).hasClass("startcell")) {
+          startsel = true;
+          startcell = $(this)[0];
+          return false;
+        }
+        if ($(this).hasClass("endcell")) {
+          endsel = true;
+          endcell = $(this)[0];
+          return false;
+        }
+        $(this).toggleClass("blocked");
+        return false; // prevent text selection
+      })
+      .mouseup(function () {
+        if (startsel) {
+          elem = $(this)[0];
+          if (elem.classList.contains("endcell") || elem.classList.contains("blocked")) {
+            return false;
+          }
+          setclass(startcell, "startcell");
+          setclass(elem, "startcell");
+          startcell = elem;
+          start.y = $(this).parent().children().index($(this));
+          start.x = $(this).parent().parent().children().index($(this).parent());
+          startsel = false;
+        }
+        if (endsel) {
+          elem = $(this)[0];
+          if (elem.classList.contains("startcell") || elem.classList.contains("blocked")) {
+            return false;
+          }
+          setclass(endcell, "endcell");
+          setclass(elem, "endcell");
+          endcell = elem;
+          end.y = $(this).parent().children().index($(this));
+          end.x = $(this).parent().parent().children().index($(this).parent());
+          endsel = false;
+        }
+      })
+      .mouseover(function () {
+        if (startsel) {
+          if (visualised) {
+            console.log("clearing");
+            $("#clearpath").trigger("click");
+          }
+          elem = $(this)[0];
+          if (elem.classList.contains("endcell") || elem.classList.contains("blocked")) {
+            return false;
+          }
+          setclass(startcell, "startcell");
+          setclass(elem, "startcell");
+          startcell = elem;
+          start.y = $(this).parent().children().index($(this));
+          start.x = $(this).parent().parent().children().index($(this).parent());
+          return false;
+        }
+        if (endsel) {
+          if (visualised) {
+            console.log("clearing");
+            $("#clearpath").trigger("click");
+          }
+          elem = $(this)[0];
+          if (elem.classList.contains("startcell") || elem.classList.contains("blocked")) {
+            return false;
+          }
+          setclass(endcell, "endcell");
+          setclass(elem, "endcell");
+          endcell = elem;
+          end.y = $(this).parent().children().index($(this));
+          end.x = $(this).parent().parent().children().index($(this).parent());
+          return false;
+        }
+        if ($(this).hasClass("startcell") || $(this).hasClass("endcell")) {
+          return false;
+        }
+        if (isMouseDown) {
+          $(this).toggleClass("blocked");
+        }
+      })
+      .bind("selectstart", function () {
+        console.log('sel');
+        return false; // prevent text selection in IE
+      });
+
+    $(document)
+      .mouseup(function () {
+        isMouseDown = false;
+      });
+  });
+</script>
+
+</html>
