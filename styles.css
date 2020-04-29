@@ -14,8 +14,24 @@ td {
   border: 1px solid lightblue;
 }
 
+@keyframes blockanimation {
+  0% {
+    background-color: white; 
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    background-color: #999;
+    transform: scale(1);
+  }
+}
+
 table td.blocked {
-  background-color:#999;
+  animation-name: blockanimation;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
 }
 
 #navBar {
@@ -45,24 +61,37 @@ li {
 }
 
 @keyframes searchanimation {
-  from {background-color: yellow;}
-  to {background-color: greenyellow;}
+  0% {
+    background-color: yellow;
+  }
+  100% {
+    background-color: greenyellow;
+  }
 }
 
 @keyframes foundpathanimation {
-  from {background-color: greenyellow;}
-  to {background-color: violet;}
+  0% {
+    background-color: greenyellow; 
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    background-color: violet;
+    transform: scale(1);
+  }
 }
 
 .visited {
   animation-name: searchanimation;
-  animation-duration: 0.2s;
+  animation-duration: 0.5s;
   animation-fill-mode: forwards;
 }
 
 .path {
   animation-name: foundpathanimation;
-  animation-duration: 0.2s;
+  animation-duration: 1s;
   animation-fill-mode: forwards;
 }
 
